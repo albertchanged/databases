@@ -8,7 +8,7 @@ var connection = mysql.createConnection({
     host     : '127.0.0.1',
     user     : 'root',
     password : '',
-    database    : 'chat'
+    database : 'chat'
 });
 
 connection.connect(function(err) {
