@@ -4,24 +4,25 @@ USE chat;
 
 /* Create other tables and define schemas for them here! */
 CREATE TABLE rooms (
-  Room_ID int NOT NULL,
-  RoomName varchar(25),
+  Room_ID int(30) NOT NULL AUTO_INCREMENT,
+  RoomName varchar(25) DEFAULT 'lobby',
   PRIMARY KEY(Room_ID)
 );
 
 CREATE TABLE users (
-  User_ID int NOT NULL,
-  Username varchar(30),
+  User_ID int(30) NOT NULL AUTO_INCREMENT,
+  Username varchar(30) DEFAULT 'anonymous',
   PRIMARY KEY(User_ID)
 );
 
 CREATE TABLE messages (
   /* Describe your table here.*/
-  Message_ID int NOT NULL AUTO_INCREMENT,
-  MessageText varchar(255),
-  UserID int NOT NULL, 
-  RoomID int NOT NULL,
-  PostDate Date,
+  Message_ID int(255) NOT NULL AUTO_INCREMENT,
+  MessageText varchar(255) DEFAULT ' ',
+  UserID int(30) NOT NULL, 
+  RoomID int(30) NOT NULL,
+  Room_Name varchar(25),
+  User_Name varchar(25),
   PRIMARY KEY(Message_ID),
   FOREIGN KEY (UserID) REFERENCES users(User_ID),
   FOREIGN KEY (RoomID) REFERENCES rooms(Room_ID)
