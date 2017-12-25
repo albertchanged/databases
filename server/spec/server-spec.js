@@ -4,6 +4,7 @@
 var mysql = require('mysql');
 var request = require('request'); // You might need to npm install the request module!
 var expect = require('chai').expect;
+var fs = require('fs');
 
 describe('Persistent Node Chat Server', function() {
   var dbConnection;
@@ -67,7 +68,10 @@ describe('Persistent Node Chat Server', function() {
 
   it('Should output all messages from the DB', function(done) {
     // Let's insert a message into the db
-    var queryString = "SELECT MessageText FROM messages";
+    // `INSERT INTO messages (text, UserID, RoomID) 
+    //             VALUES ("${request.message}", 1, 
+    //             1);`
+    var queryString = 'INSERT INTO messages (text, UserID, RoomID, Room_Name) VALUES ("In mercy\'s name, three days is all I need.", 1, 1, "Hello")';
     var queryArgs = [];
     // TODO - The exact query string and query args to use
     // here depend on the schema you design, so I'll leave
@@ -79,9 +83,17 @@ describe('Persistent Node Chat Server', function() {
       // Now query the Node chat server and see if it returns
       // the message we just inserted:
       request('http://127.0.0.1:3000/classes/messages', function(error, response, body) {
+        fs.writeFile(__dirname + '/test.js', body, function(error, data) {
+          if (error) {
+            console.log(error); 
+          }
+        });
+        // console.log(body);
         var messageLog = body;
-        expect(messageLog[0].text).to.equal('Men like you can never change!');
-        expect(messageLog[0].roomname).to.equal('main');
+
+        // messageLog = messageLog.results;
+        expect(messageLog[0].text).to.equal('In mercy\'s name, three days is all I need.');
+        expect(messageLog[0].roomname).to.equal('Hello');
         done();
       });
     });

@@ -18,14 +18,14 @@ CREATE TABLE users (
 CREATE TABLE messages (
   /* Describe your table here.*/
   Message_ID int(255) NOT NULL AUTO_INCREMENT,
-  MessageText varchar(255) DEFAULT ' ',
+  text varchar(255) DEFAULT ' ',
   UserID int(30) NOT NULL, 
   RoomID int(30) NOT NULL,
   Room_Name varchar(25),
   User_Name varchar(25),
-  PRIMARY KEY(Message_ID),
-  FOREIGN KEY (UserID) REFERENCES users(User_ID),
-  FOREIGN KEY (RoomID) REFERENCES rooms(Room_ID)
+  PRIMARY KEY(Message_ID)
+  -- FOREIGN KEY (UserID) REFERENCES users(User_ID),
+  -- FOREIGN KEY (RoomID) REFERENCES rooms(Room_ID)
 );
 
 
